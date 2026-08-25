@@ -1,664 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinPulse AI — Financial Immunity & Decision Engine for Gen Z</title>
-    <meta name="description" content="Duolingo for money: Cut through TikTok finfluencer noise, decode payslips, and master investing risk-free with AI.">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome icons & Three.js 3D Engine -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-
-    <!-- PWA Manifest & Mobile Icons -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#6366f1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="FinPulse AI">
-    <link rel="apple-touch-icon" href="animated_architecture.svg">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>FinPulse.AI — Understand money content. Spot risk.</title>
+  <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="dark-theme">
-    <!-- Interactive 3D WebGL Background Canvas -->
-    <canvas id="hero-3d-canvas"></canvas>
-    <!-- Background glow effects -->
-    <div class="bg-glow bg-glow-1"></div>
-    <div class="bg-glow bg-glow-2"></div>
-    <div class="bg-glow bg-glow-3"></div>
-
-    <!-- Header / Navigation -->
-    <header class="app-header">
-        <div class="logo-container">
-            <div class="logo-badge">
-                <i class="fa-solid fa-bolt text-accent"></i>
-            </div>
-            <span class="logo-text">FinPulse<span class="text-gradient">.AI</span></span>
-            <span class="edition-tag">WIF Hackathon '26</span>
-        </div>
-        
-        <nav class="nav-links">
-            <button class="nav-btn active" data-tab="bs-detector"><i class="fa-solid fa-shield-cat"></i> BS Scanner</button>
-            <button class="nav-btn" data-tab="payslip-decoder"><i class="fa-solid fa-file-invoice-dollar"></i> Payslip Decoder</button>
-            <button class="nav-btn" data-tab="investment-sandbox"><i class="fa-solid fa-chart-line-up"></i> Investor Sandbox</button>
-            <button class="nav-btn" data-tab="daily-quests"><i class="fa-solid fa-gamepad"></i> Daily Quests</button>
-            <button class="nav-btn b2b-btn" data-tab="b2b-dashboard"><i class="fa-solid fa-building-columns"></i> Bank/B2B View</button>
-        </nav>
-
-        <div class="user-stats">
-            <div class="stat-pill streak-pill" title="Daily Streak">
-                <i class="fa-solid fa-fire text-fire"></i>
-                <span id="streak-count">5 Days</span>
-            </div>
-            <div class="stat-pill xp-pill" title="Financial IQ XP">
-                <i class="fa-solid fa-trophy text-gold"></i>
-                <span id="xp-count">1,450 XP</span>
-            </div>
-        </div>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" data-go="home" aria-label="FinPulse home">
+        <span class="brand-mark">⚡</span><span>FinPulse<span class="brand-ai">.AI</span></span>
+      </button>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-btn active" data-tab="scam-check">🛡️ <span>Money Check</span></button>
+        <button class="nav-btn" data-tab="money-lab">💰 <span>Money Lab</span></button>
+        <button class="nav-btn" data-tab="money-battles">🎮 <span>Money Battles</span></button>
+        <button class="nav-btn" data-tab="progress">🏆 <span>My Progress</span></button>
+      </nav>
+      <div class="mini-stats" aria-label="Learning progress">
+        <span>🔥 <strong id="header-streak">1</strong></span>
+        <span>⭐ <strong id="header-points">0</strong></span>
+      </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="main-container">
+    <main>
+      <section id="scam-check" class="tab-panel active" aria-labelledby="scam-title">
+        <div class="hero compact-hero">
+          <div>
+            <span class="eyebrow">🛡️ MONEY CHECK</span>
+            <h1 id="scam-title">Seen money content online? <span>Understand it first.</span></h1>
+            <p>Paste almost any money-related social video or its words. FinPulse identifies the topic, pulls out the financial claims, explains key terms and spots warning signs when they are relevant.</p>
+          </div>
+          <div class="hero-promise">
+            <div><strong>1</strong><span>Paste it</span></div>
+            <div><strong>2</strong><span>Understand it</span></div>
+            <div><strong>3</strong><span>Check the risk</span></div>
+          </div>
+        </div>
 
-        <!-- TAB 1: FINFLUENCER BS SCANNER -->
-        <section id="bs-detector" class="tab-content active">
-            <!-- ⚡ 1-CLICK STAGE DEMO PRESET BAR -->
-            <div class="stage-demo-bar glass-card mb-4" style="background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3); padding: 14px 20px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span class="badge" style="background: #6366f1; color: #fff; padding: 4px 10px; border-radius: 20px; font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">⚡ 1-Click Stage Demo</span>
-                    <span style="font-size: 12px; color: #94a3b8; font-weight: 500;">Start Maya's complete claim-to-decision rehearsal:</span>
-                </div>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <button class="btn btn-secondary btn-sm preset-btn" data-preset="forex"><i class="fa-brands fa-tiktok text-accent"></i> 50x Forex Scam</button>
-                    <button class="btn btn-secondary btn-sm preset-btn" data-preset="crypto"><i class="fa-brands fa-instagram text-purple"></i> Meme Coin Presale</button>
-                    <button class="btn btn-secondary btn-sm preset-btn" data-preset="bnpl"><i class="fa-solid fa-bolt text-gold"></i> BNPL Debt Trap</button>
-                </div>
+        <div class="grid two-col scam-grid">
+          <article class="card input-card">
+            <div class="section-title-row">
+              <div>
+                <span class="step-pill">STEP 1</span>
+                <h2>What did you see?</h2>
+              </div>
+              <span class="tiny-note">TikTok · Instagram · YouTube · X</span>
             </div>
 
-            <div class="hero-banner">
-                <div class="hero-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Educational Promotion Risk Checker</div>
-                <h1>Cut Through <span class="text-gradient">Social Media Money Noise</span></h1>
-                <p>Paste a viral claim or transcript from <strong>TikTok, Instagram Reels, YouTube Shorts, or X</strong>. FinPulse highlights risk indicators, reveals missing context and rehearses the downside before any money is committed.</p>
+            <label for="source-link">Link to the post or video <span class="optional">optional</span></label>
+            <div class="input-with-button">
+              <input id="source-link" type="url" placeholder="Paste the public link here" autocomplete="off" />
+              <button id="transcribe-btn" class="btn secondary">🎧 Get words</button>
+            </div>
+            <div id="transcribe-status" class="status-line" aria-live="polite"></div>
+
+            <label for="claim-input">What was said? <span class="optional">you can edit this</span></label>
+            <textarea id="claim-input" rows="7" placeholder="The transcript will appear here, or paste the caption/message yourself."></textarea>
+
+            <div class="demo-row" aria-label="Quick demo examples">
+              <button class="demo-chip" data-demo="forex">50× forex</button>
+              <button class="demo-chip" data-demo="crypto">Meme coin</button>
+              <button class="demo-chip" data-demo="safe">Balanced example</button>
             </div>
 
-            <div class="grid-2col">
-                <!-- Input Panel -->
-                <div class="card glass-card">
-                    <h3><i class="fa-solid fa-magnifying-glass-dollar text-accent"></i> Analyze Social Media Claim</h3>
-                    <p class="subtitle">Choose social media platform:</p>
+            <button id="scan-btn" class="btn primary wide">🛡️ Understand this money content</button>
+            <p class="microcopy">FinPulse explains financial content and flags concerns when relevant. It does not certify content as true/safe or tell you what to buy.</p>
+          </article>
 
-                    <div class="platform-selector">
-                        <button class="platform-chip active" data-platform="tiktok"><i class="fa-brands fa-tiktok text-accent"></i> TikTok</button>
-                        <button class="platform-chip" data-platform="instagram"><i class="fa-brands fa-instagram text-purple"></i> Instagram Reels</button>
-                        <button class="platform-chip" data-platform="youtube"><i class="fa-brands fa-youtube text-red"></i> YouTube Shorts</button>
-                        <button class="platform-chip" data-platform="x"><i class="fa-brands fa-x-twitter"></i> X / Twitter</button>
-                    </div>
-
-                    <p class="subtitle mt-3">Select a common viral scenario or paste video script / URL:</p>
-
-                    <div class="preset-pills">
-                        <button class="preset-chip active" data-preset="forex">💸 "Make £5k/day Trading Forex"</button>
-                        <button class="preset-chip" data-preset="crypto">🚀 "Next 100x Meme Coin Gem"</button>
-                        <button class="preset-chip" data-preset="bnpl">🛍️ "Buy Now Pay Later is Free Money"</button>
-                        <button class="preset-chip" data-preset="index">📈 "Low-Cost S&P 500 Index Fund"</button>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="claim-input">Video Script / Claim / Text:</label>
-                        <textarea id="claim-input" rows="4" placeholder="e.g. Bro, just put £500 into this new coin with 100x leverage and quit your 9-to-5 by Friday!"></textarea>
-                    </div>
-
-                    <div class="button-row" style="margin-top: 16px;">
-                        <button id="scan-btn" class="btn-3d btn-3d-primary" style="width: 100%;">
-                            <i class="fa-solid fa-microchip"></i> Check Claim Risk Indicators
-                        </button>
-                    </div>
-                </div>
-
-                <!-- AI Audit Result Output -->
-                <div class="card glass-card result-card" id="audit-result-panel">
-                    <div class="result-header">
-                        <h3><i class="fa-solid fa-shield-halved"></i> Rule-Based Risk Report</h3>
-                        <div id="risk-badge" class="risk-badge risk-high">
-                            <i class="fa-solid fa-triangle-exclamation"></i> HIGH RISK / RED FLAGS DETECTED
-                        </div>
-                    </div>
-
-                    <div class="audit-metrics-grid">
-                        <div class="metric-box">
-                            <span class="metric-label">Claim-Risk Indicators</span>
-                            <span class="metric-val text-red" id="metric-score">92%</span>
-                        </div>
-                        <div class="metric-box">
-                            <span class="metric-label">Underlying Risk</span>
-                            <span class="metric-val text-orange" id="metric-risk">Extreme Leverage</span>
-                        </div>
-                        <div class="metric-box">
-                            <span class="metric-label">Independent Verification</span>
-                            <span class="metric-val text-purple" id="metric-monetization">Affiliate Commission</span>
-                        </div>
-                    </div>
-
-                    <div class="audit-details">
-                        <h4><i class="fa-solid fa-list-check"></i> Red Flag Analysis:</h4>
-                        <ul id="flags-container" class="styled-list">
-                            <!-- Populated dynamically -->
-                        </ul>
-
-                        <div class="reality-box">
-                            <h4><i class="fa-solid fa-lightbulb text-gold"></i> The Plain-Truth Reality:</h4>
-                            <p id="reality-box-text">Loading reality check...</p>
-                        </div>
-
-                        <div class="verdict-banner" id="verdict-banner">
-                            <strong>BOUNDARY:</strong> <span id="verdict-text">This educational pattern check cannot determine whether a firm or promotion is safe.</span>
-                        </div>
-                    </div>
-                </div>
+          <article class="card result-card" id="scam-result-card">
+            <div class="empty-state" id="scam-empty">
+              <div class="big-icon">🔎</div>
+              <h2>Your check will appear here</h2>
+              <p>We will show what stood out, why it matters, and what you can check next.</p>
             </div>
 
-            <section class="decision-flow glass-card" id="decision-flow" aria-labelledby="decision-flow-title">
-                <div class="decision-flow-heading">
-                    <div>
-                        <span class="flow-kicker">Maya's 90-second journey</span>
-                        <h2 id="decision-flow-title">Rehearse the decision before risking money</h2>
-                    </div>
-                    <div class="flow-progress" aria-label="Four-step decision rehearsal">
-                        <span class="flow-step active">1 Claim</span>
-                        <span class="flow-step">2 Context</span>
-                        <span class="flow-step">3 Understand</span>
-                        <span class="flow-step">4 Receipt</span>
-                    </div>
-                </div>
-
-                <div class="decision-input-grid">
-                    <div class="input-group">
-                        <label for="decision-amount">Amount Maya is considering</label>
-                        <div class="money-input"><span>£</span><input id="decision-amount" type="number" min="1" max="100000" value="250" inputmode="decimal"></div>
-                    </div>
-                    <div class="input-group">
-                        <label for="decision-reason">What is this money currently for?</label>
-                        <input id="decision-reason" type="text" maxlength="240" value="My rental deposit and emergency buffer">
-                    </div>
-                </div>
-                <button id="rehearse-btn" class="btn-3d btn-3d-primary"><i class="fa-solid fa-shield-heart"></i> Rehearse Maya's Decision</button>
-                <p id="decision-error" class="form-error hidden" role="alert"></p>
-
-                <div id="rehearsal-results" class="rehearsal-results hidden">
-                    <div class="decision-panel">
-                        <h3><i class="fa-solid fa-circle-question text-accent"></i> What the claim did not tell Maya</h3>
-                        <ul id="missing-context-list" class="styled-list"></ul>
-                    </div>
-                    <div class="decision-panel downside-panel">
-                        <span class="scenario-label">Personal downside rehearsal</span>
-                        <p id="downside-scenario"></p>
-                    </div>
-                    <div class="decision-panel comprehension-panel">
-                        <h3 id="comprehension-question">Check your understanding</h3>
-                        <div id="comprehension-options" class="receipt-options"></div>
-                        <button id="receipt-btn" class="btn btn-primary" disabled>Generate Private Decision Receipt</button>
-                    </div>
-                </div>
-
-                <article id="decision-receipt" class="decision-receipt hidden" aria-live="polite">
-                    <div class="receipt-header">
-                        <div><span class="flow-kicker">Educational completion record</span><h3>Decision Receipt</h3></div>
-                        <span id="receipt-status" class="receipt-status"></span>
-                    </div>
-                    <dl class="receipt-grid">
-                        <div><dt>Receipt</dt><dd id="receipt-id"></dd></div>
-                        <div><dt>Created</dt><dd id="receipt-created"></dd></div>
-                        <div><dt>Amount rehearsed</dt><dd id="receipt-amount"></dd></div>
-                        <div><dt>Next step</dt><dd id="receipt-next-step"></dd></div>
-                    </dl>
-                    <p id="receipt-privacy" class="receipt-note"></p>
-                    <p class="receipt-boundary">This is not approval to invest, a scam determination or financial advice.</p>
-                </article>
-            </section>
-        </section>
-
-        <!-- TAB 2: PAYSLIP & DECISION DECODER -->
-        <section id="payslip-decoder" class="tab-content">
-            <div class="hero-banner">
-                <div class="hero-badge"><i class="fa-solid fa-receipt"></i> UK Payslip & Salary Engine</div>
-                <h1>Understand Where Your <span class="text-gradient">Money Actually Goes</span></h1>
-                <p>Interactive UK payslip decoder for 18-25 year olds starting their first job or internship. Demystify PAYE, Tax Codes, National Insurance, and Pensions.</p>
-            </div>
-
-            <div class="grid-2col">
-                <!-- Interactive Controls -->
-                <div class="card glass-card">
-                    <h3><i class="fa-solid fa-sliders text-accent"></i> Salary & Tax Configuration</h3>
-                    
-                    <div class="form-group">
-                        <label for="salary-slider">Annual Gross Salary (£):</label>
-                        <div class="slider-val-display">
-                            <input type="range" id="salary-slider" min="15000" max="60000" step="1000" value="28000">
-                            <span id="salary-display" class="val-pill">£28,000 / year</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="tax-code-select">UK Tax Code:</label>
-                        <select id="tax-code-select" class="custom-select">
-                            <option value="1257L" selected>1257L (Standard UK Tax-Free Personal Allowance £12,570)</option>
-                            <option value="BR">BR (Basic Rate 20% on all earnings - Emergency Tax!)</option>
-                            <option value="1257L-M">1257L-M1 (Emergency Month 1 Basis)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="student-loan-select">Student Loan Plan:</label>
-                        <select id="student-loan-select" class="custom-select">
-                            <option value="none">No Student Loan</option>
-                            <option value="plan2" selected>Plan 2 (Undergrad started 2012-2023 - 9% over £27,295)</option>
-                            <option value="plan5">Plan 5 (Undergrad started 2023+ - 9% over £25,000)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="pension-slider">Workplace Pension Match (%):</label>
-                        <div class="slider-val-display">
-                            <input type="range" id="pension-slider" min="0" max="10" step="1" value="5">
-                            <span id="pension-display" class="val-pill">5% (Employee) + 3% (Employer)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Interactive Payslip Card -->
-                <div class="card glass-card payslip-paper">
-                    <div class="payslip-header">
-                        <div>
-                            <h2>MONTHLY PAYSLIP</h2>
-                            <p class="company-name">Acme Tech Ltd • London, UK</p>
-                        </div>
-                        <div class="pay-date">
-                            <span>PAY DATE</span>
-                            <strong>28 Aug 2026</strong>
-                        </div>
-                    </div>
-
-                    <div class="payslip-meta">
-                        <div>Tax Code: <strong id="ps-tax-code" class="highlight-code">1257L</strong></div>
-                        <div>NI Category: <strong>A</strong></div>
-                        <div>Period: <strong>Month 5</strong></div>
-                    </div>
-
-                    <div class="payslip-table">
-                        <div class="ps-row ps-header-row">
-                            <span>PAYMENTS</span>
-                            <span>AMOUNT</span>
-                            <span>DEDUCTIONS</span>
-                            <span>AMOUNT</span>
-                        </div>
-
-                        <div class="ps-row interactive-item">
-                            <span>Basic Pay</span>
-                            <span id="ps-gross">£2,333.33</span>
-                            <span>Income Tax (PAYE)</span>
-                            <span id="ps-tax" class="text-red">-£214.33</span>
-                        </div>
-
-                        <div class="ps-row interactive-item">
-                            <span>Overtime / Bonus</span>
-                            <span>£0.00</span>
-                            <span>National Insurance</span>
-                            <span id="ps-ni" class="text-red">-£86.13</span>
-                        </div>
-
-                        <div class="ps-row interactive-item">
-                            <span></span>
-                            <span></span>
-                            <span id="ps-pension-label">Employee Pension (5%)</span>
-                            <span id="ps-pension" class="text-purple">-£116.67</span>
-                        </div>
-
-                        <div class="ps-row interactive-item">
-                            <span></span>
-                            <span></span>
-                            <span>Student Loan Repayment</span>
-                            <span id="ps-student-loan" class="text-orange">-£0.00</span>
-                        </div>
-                    </div>
-
-                    <div class="payslip-footer">
-                        <div class="total-box">
-                            <span>TOTAL DEDUCTIONS</span>
-                            <strong id="ps-total-deductions" class="text-red">£417.13</strong>
-                        </div>
-                        <div class="net-pay-box">
-                            <span>NET TAKE-HOME PAY</span>
-                            <strong id="ps-net-pay" class="text-green">£1,916.20</strong>
-                        </div>
-                    </div>
-
-                    <div class="payslip-insight-callout">
-                        <i class="fa-solid fa-circle-info text-accent"></i>
-                        <span id="payslip-tip">Illustrative employer contribution shown. Check your workplace scheme rules before deciding.</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 3: INVESTOR VS GAMBLER SANDBOX -->
-        <section id="investment-sandbox" class="tab-content">
-            <div class="hero-banner">
-                <div class="hero-badge"><i class="fa-solid fa-chart-pie"></i> Risk & Growth Engine</div>
-                <h1>Build Wealth Like An <span class="text-gradient">Investor, Not A Gambler</span></h1>
-                <p>Simulate 5-year growth, compound interest, market crashes, and asset allocation without risking a single real penny.</p>
-            </div>
-
-            <div class="grid-2col">
-                <!-- Controls -->
-                <div class="card glass-card">
-                    <h3><i class="fa-solid fa-sliders text-accent"></i> Portfolio Strategy Sandbox</h3>
-
-                    <div class="form-group">
-                        <label for="deposit-slider">Monthly Investment (£):</label>
-                        <div class="slider-val-display">
-                            <input type="range" id="deposit-slider" min="25" max="500" step="25" value="150">
-                            <span id="deposit-display" class="val-pill">£150 / month</span>
-                        </div>
-                    </div>
-
-                    <div class="strategy-selector">
-                        <label>Choose Strategy Archetype:</label>
-                        
-                        <div class="strategy-card active" data-strategy="balanced">
-                            <div class="strat-header">
-                                <i class="fa-solid fa-shield-heart text-green"></i>
-                                <strong>Smart Investor (Index Funds)</strong>
-                            </div>
-                            <p>Global Diversified ETF (8% avg. return). Low fees, high compounding stability.</p>
-                        </div>
-
-                        <div class="strategy-card" data-strategy="gambler">
-                            <div class="strat-header">
-                                <i class="fa-solid fa-dice text-red"></i>
-                                <strong>Meme Trader / High-Leverage Crypto</strong>
-                            </div>
-                            <p>High volatility (+300% or -95%). 85% chance of severe drawdown within 12 months.</p>
-                        </div>
-
-                        <div class="strategy-card" data-strategy="savings">
-                            <div class="strat-header">
-                                <i class="fa-solid fa-piggy-bank text-purple"></i>
-                                <strong>Cash Savings Account</strong>
-                            </div>
-                            <p>High-Yield Savings (4.5% return). Guaranteed safety, but risks losing value to inflation.</p>
-                        </div>
-                    </div>
-
-                    <button id="simulate-crash-btn" class="btn btn-warning btn-glow mt-3">
-                        <i class="fa-solid fa-bolt"></i> Trigger Market Crash Stress Test
-                    </button>
-                </div>
-
-                <!-- Visual Simulation Chart & Metrics -->
-                <div class="card glass-card">
-                    <div class="chart-header">
-                        <h3><i class="fa-solid fa-chart-line"></i> 5-Year Wealth Trajectory</h3>
-                        <span id="chart-badge" class="badge badge-green">Balanced Diversified</span>
-                    </div>
-
-                    <!-- Simulated Canvas Chart -->
-                    <div class="chart-container">
-                        <canvas id="growthCanvas" width="500" height="260"></canvas>
-                    </div>
-
-                    <div class="stat-summary-grid">
-                        <div class="summary-box">
-                            <span class="s-label">Total Invested</span>
-                            <span class="s-val" id="sum-invested">£9,000</span>
-                        </div>
-                        <div class="summary-box">
-                            <span class="s-label">Projected Value (Yr 5)</span>
-                            <span class="s-val text-green" id="sum-projected">£11,148</span>
-                        </div>
-                        <div class="summary-box">
-                            <span class="s-label">Compound Gain</span>
-                            <span class="s-val text-accent" id="sum-gain">+£2,148 (23.8%)</span>
-                        </div>
-                    </div>
-
-                    <div class="lesson-box mt-3">
-                        <i class="fa-solid fa-graduation-cap text-gold"></i>
-                        <div class="lesson-content">
-                            <strong id="lesson-title">The Power of Compound Interest</strong>
-                            <p id="lesson-body">Starting with just £150/month at age 20 means compound interest does the heavy lifting. Time in the market beats timing the market!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 4: GAMIFIED DAILY QUESTS -->
-        <section id="daily-quests" class="tab-content">
-            <div class="hero-banner">
-                <div class="hero-badge"><i class="fa-solid fa-fire text-fire"></i> Daily Financial Hygiene</div>
-                <h1>Earn XP & Master <span class="text-gradient">Real Financial Skills</span></h1>
-                <p>Interactive 2-minute daily micro-lessons that turn boring money jargon into gamified habit formation.</p>
-            </div>
-
-            <div class="quests-grid">
-                <!-- Quest 1 -->
-                <div class="card glass-card quest-card">
-                    <div class="quest-status status-done"><i class="fa-solid fa-circle-check"></i> Completed</div>
-                    <div class="quest-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    <h3>Red Flag Spotter</h3>
-                    <p>Identify 3 hidden fees in a BNPL agreement to protect your credit score.</p>
-                    <div class="quest-footer">
-                        <span class="xp-tag">+100 XP</span>
-                        <button class="btn btn-secondary btn-sm" disabled>Completed</button>
-                    </div>
-                </div>
-
-                <!-- Quest 2 -->
-                <div class="card glass-card quest-card highlight-quest">
-                    <div class="quest-status status-active"><i class="fa-solid fa-star"></i> Today's Quest</div>
-                    <div class="quest-icon"><i class="fa-solid fa-percent text-accent"></i></div>
-                    <h3>The Credit Score Quiz</h3>
-                    <p>Does checking your own credit score lower it? Test your knowledge.</p>
-                    <div class="quest-footer">
-                        <span class="xp-tag">+150 XP</span>
-                        <button id="start-quiz-btn" class="btn btn-primary btn-sm btn-glow">Play Quest</button>
-                    </div>
-                </div>
-
-                <!-- Quest 3: Tenancy Deposit Protection -->
-                <div class="card glass-card quest-card highlight-quest">
-                    <div class="quest-status status-active"><i class="fa-solid fa-house-chimney text-accent"></i> Active Quest</div>
-                    <div class="quest-icon"><i class="fa-solid fa-key text-gold"></i></div>
-                    <h3>Tenancy Deposit Protection</h3>
-                    <p>Learn where UK landlords legally must register your deposit (TDS/DPS).</p>
-                    <div class="quest-footer">
-                        <span class="xp-tag">+200 XP</span>
-                        <button id="start-tenancy-btn" class="btn btn-primary btn-sm btn-glow">Play Quest</button>
-                    </div>
-                </div>
-
-                <!-- Quest 4: Tax-Free Stocks & Shares ISA -->
-                <div class="card glass-card quest-card highlight-quest">
-                    <div class="quest-status status-active"><i class="fa-solid fa-piggy-bank text-green"></i> Unlock ISA Bounty</div>
-                    <div class="quest-icon"><i class="fa-solid fa-shield-halved text-purple"></i></div>
-                    <h3>£20,000 Tax-Free ISA Shelter</h3>
-                    <p>Master UK ISA tax shelters and unlock partner Cash/Stocks ISA cashback bonuses.</p>
-                    <div class="quest-footer">
-                        <span class="xp-tag">+300 XP</span>
-                        <button id="start-isa-btn" class="btn btn-primary btn-sm btn-glow" style="background: linear-gradient(135deg, #a855f7, #6366f1);">Unlock ISA Bounty</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Partner ISA Lead Referral Modal -->
-            <div id="isa-modal" class="card glass-card quiz-container hidden" style="border: 1px solid rgba(168, 85, 247, 0.4); max-width: 550px;">
-                <div class="quiz-header">
-                    <h3><i class="fa-solid fa-graduation-cap text-purple"></i> Demo Learning Credential</h3>
-                    <button id="close-isa-modal-btn" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div class="quiz-body">
-                    <h4>🎉 Congratulations! You Completed the ISA Learning Demo</h4>
-                    <p style="color: #cbd5e1; font-size: 13px;">This demo credential records completion of an educational quest only. It is not FCA accreditation, financial advice, or an ISA offer.</p>
-                    
-                    <div style="background: rgba(30, 27, 75, 0.6); padding: 16px; border-radius: 12px; border: 1px stroke rgba(168,85,247,0.3); margin: 16px 0;">
-                        <div style="display: flex; justify-content: space-between; font-size: 12px; color: #94a3b8; margin-bottom: 6px;">
-                            <span>Credential ID:</span>
-                            <strong id="isa-credential-id" class="text-accent" style="font-family: monospace;">FINPULSE-ISA-2026-8891</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; font-size: 12px; color: #94a3b8;">
-                            <span>Regulated Lead Bounty:</span>
-                            <strong class="text-green" style="font-size: 14px;">£45.00 Partner Cashback</strong>
-                        </div>
-                    </div>
-                    
-                    <button id="claim-isa-bounty-btn" class="btn btn-primary btn-glow" style="width: 100%; background: linear-gradient(135deg, #10b981, #06b6d4);"><i class="fa-solid fa-gift"></i> Claim Partner ISA Bonus &amp; Open Account</button>
-                    <div id="isa-claim-status" class="mt-2 text-center text-green hidden" style="font-weight: 700; font-size: 13px;"></div>
-                </div>
-            </div>
-
-            <!-- Quiz Modal / Container -->
-            <div id="quiz-modal" class="card glass-card quiz-container hidden">
-                <div class="quiz-header">
-                    <h3><i class="fa-solid fa-brain text-accent"></i> Quick Financial IQ Challenge</h3>
-                    <button id="close-quiz-btn" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                
-                <div class="quiz-body">
-                    <h4 id="quiz-question">Question: Does checking your own credit score via a free app like ClearScore damage your credit rating?</h4>
-                    <div class="quiz-options">
-                        <button class="quiz-opt-btn" data-correct="true">
-                            <span class="opt-letter">A</span> No, it's a 'Soft Search' and has ZERO impact on your score.
-                        </button>
-                        <button class="quiz-opt-btn" data-correct="false">
-                            <span class="opt-letter">B</span> Yes, every search knocks 20 points off your rating.
-                        </button>
-                        <button class="quiz-opt-btn" data-correct="false">
-                            <span class="opt-letter">C</span> Only if you do it more than once a month.
-                        </button>
-                    </div>
-                </div>
-
-                <div id="quiz-feedback" class="quiz-feedback hidden">
-                    <i class="fa-solid fa-circle-check text-green icon-lg"></i>
-                    <div>
-                        <strong>CORRECT! +150 XP Earned! 🎉</strong>
-                        <p>Checking your own credit score is a "soft search" and never hurts your rating. Applying for multiple credit cards at once IS a "hard search" which can temporarily drop your score.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 5: B2B FCA CONSUMER DUTY DASHBOARD -->
-        <section id="b2b-dashboard" class="tab-content">
-            <div class="hero-banner b2b-banner">
-                <div class="hero-badge b2b-badge"><i class="fa-solid fa-shield-check"></i> B2B Concept Dashboard</div>
-                <h1>Consumer Duty <span class="text-gradient-purple">Evidence Prototype</span></h1>
-                <p>Illustrative product concepts for customer education and outcome measurement. Figures are demo data and do not establish regulatory compliance.</p>
-            </div>
-
-            <div class="b2b-metrics-grid">
-                <div class="card glass-card b2b-card">
-                    <div class="b2b-icon"><i class="fa-solid fa-users-gear text-purple"></i></div>
-                    <span class="b2b-title">Active Gen Z Accounts</span>
-                    <strong class="b2b-val">42,850</strong>
-                    <span class="b2b-sub text-green"><i class="fa-solid fa-arrow-trend-up"></i> +18% MoM</span>
-                </div>
-                <div class="card glass-card b2b-card">
-                    <div class="b2b-icon"><i class="fa-solid fa-graduation-cap text-accent"></i></div>
-                    <span class="b2b-title">Sample Quest Completion</span>
-                    <strong class="b2b-val">89.4%</strong>
-                    <span class="b2b-sub text-purple">Illustrative demo metric</span>
-                </div>
-                <div class="card glass-card b2b-card">
-                    <div class="b2b-icon"><i class="fa-solid fa-triangle-exclamation text-orange"></i></div>
-                    <span class="b2b-title">Scam Attacks Prevented</span>
-                    <strong class="b2b-val">12,410</strong>
-                    <span class="b2b-sub text-green">Est. £1.8M saved</span>
-                </div>
-                <div class="card glass-card b2b-card">
-                    <div class="b2b-icon"><i class="fa-solid fa-piggy-bank text-green"></i></div>
-                    <span class="b2b-title">First ISA Openings</span>
-                    <strong class="b2b-val">6,240</strong>
-                    <span class="b2b-sub text-accent">Partner Lead Conversion</span>
-                </div>
-            </div>
-
-            <div class="card glass-card mt-4">
-                <h3><i class="fa-solid fa-file-contract text-purple"></i> Why Banks & Employers Pay For FinPulse AI</h3>
-                <div class="grid-2col b2b-benefits">
-                    <div class="benefit-item">
-                        <h4><i class="fa-solid fa-gavel text-gold"></i> FCA Consumer Duty Mandate</h4>
-                        <p>Consumer Duty places emphasis on customer understanding and outcomes. This prototype would still require a regulated firm's governance, testing, controls and evidence.</p>
-                    </div>
-                    <div class="benefit-item">
-                        <h4><i class="fa-solid fa-briefcase text-accent"></i> Employer Gen Z Wellbeing</h4>
-                        <p>Companies like Deloitte, KPMG, and NatWest offer FinPulse AI to graduates and apprentices to reduce money stress and increase workplace retention.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Interactive Bank ROI Calculator -->
-            <div class="card glass-card mt-4 b2b-roi-card" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(168, 85, 247, 0.3);">
-                <h3><i class="fa-solid fa-calculator text-purple"></i> Illustrative B2B Scenario Calculator</h3>
-                <p style="color: #94a3b8; font-size: 13px; margin-bottom: 16px;">Explore a hypothetical scenario. Values are not forecasts, compliance evidence or guaranteed savings.</p>
-                <div class="grid-2col" style="gap: 20px;">
-                    <div>
-                        <label for="bank-users-slider" style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px;">
-                            <span>Active Gen Z Account Holders:</span>
-                            <span id="bank-users-val" class="text-accent" style="font-weight: 800;">100,000 Users</span>
-                        </label>
-                        <input type="range" id="bank-users-slider" min="10000" max="500000" step="10000" value="100000" style="width: 100%;">
-                    </div>
-                    <div style="background: rgba(30, 27, 75, 0.5); padding: 16px; border-radius: 12px; border: 1px solid rgba(99, 102, 241, 0.2); display: flex; flex-direction: column; justify-content: center;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                            <span style="color: #94a3b8; font-size: 12px;">Est. FCA Fine Risk Savings:</span>
-                            <strong id="roi-fine-savings" class="text-green" style="font-size: 18px;">£1,420,000</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                            <span style="color: #94a3b8; font-size: 12px;">FinPulse Annual License:</span>
-                            <strong id="roi-saas-fee" class="text-purple">£75,000/yr</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 6px; margin-top: 4px;">
-                            <span style="font-weight: 700; font-size: 13px;">Net Bank Compliance ROI:</span>
-                            <strong id="roi-multiple" class="text-gold" style="font-size: 16px;">18.9x ROI</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Export Telemetry Action Bar -->
-            <div class="glass-card mt-4" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(16, 185, 129, 0.3);">
+            <div id="scam-results" class="hidden">
+              <div class="risk-header">
+                <span id="risk-icon" class="risk-icon">🧠</span>
                 <div>
-                    <h4 style="margin: 0; color: #fff; font-size: 14px;"><i class="fa-solid fa-download text-green"></i> Partner Evidence Export Concept</h4>
-                    <span style="font-size: 11.5px; color: #94a3b8;">Production exports require authentication, governance and tenant controls.</span>
+                  <span id="risk-label" class="risk-label">FINANCIAL CONTENT ANALYSIS</span>
+                  <h2 id="risk-title">FinPulse take</h2>
+                  <p id="risk-summary"></p>
                 </div>
-                <div style="display: flex; gap: 8px;">
-                    <span class="badge badge-purple">Protected partner API</span>
-                </div>
-            </div>
-        </section>
+              </div>
 
+              <div class="context-grid">
+                <div><span>🧩 Main money topic</span><strong id="offer-type">General money content</strong></div>
+                <div><span>🧭 What kind of content is this?</span><strong id="who-benefits">Financial discussion</strong></div>
+              </div>
+
+              <h3>What is really being claimed?</h3>
+              <div id="claim-list" class="flag-list"></div>
+
+              <h3>FinPulse assessment</h3>
+              <div id="assessment-box"></div>
+
+              <h3>If someone acted on this idea</h3>
+              <div id="scenario-box" class="scenario-grid"></div>
+
+              <h3>Understand before you act</h3>
+              <div id="concept-list" class="flag-list"></div>
+
+              <h3>Scam-style warning signs</h3>
+              <div id="flag-list" class="flag-list"></div>
+
+              <h3>What should I verify?</h3>
+              <ul id="verify-list" class="verify-list"></ul>
+
+              <div class="next-step-box">
+                <div>
+                  <span class="eyebrow">NEXT BEST STEP</span>
+                  <h3 id="next-step-title">Check the assumptions before acting</h3>
+                  <p id="next-step-text"></p>
+                </div>
+                <a class="btn ghost" href="https://register.fca.org.uk/s/" target="_blank" rel="noopener">🔎 FCA Firm Checker</a>
+              </div>
+
+              <button id="use-in-lab-btn" class="btn secondary wide">💰 See what this could mean for my money</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="money-lab" class="tab-panel" aria-labelledby="lab-title">
+        <div class="hero compact-hero"><div><span class="eyebrow">💰 MONEY LAB · UK</span><h1 id="lab-title">Explore it before you <span>risk real money.</span></h1><p>Pick a real investment type, understand what your money goes into, then try simple UK-focused scenarios. No jargon. No predictions.</p></div></div>
+
+        <article class="card asset-picker-card">
+          <span class="step-pill">1 · PICK IT</span><h2>What do you want to explore?</h2><p class="muted">Choose one. FinPulse will explain it before showing any numbers.</p>
+          <div id="asset-choice-grid" class="asset-choice-grid">
+            <button class="asset-choice selected" data-asset="fund"><span>🌍</span><strong>Funds & ETFs</strong><small>Spread money across many companies.</small><b>Medium risk</b></button>
+            <button class="asset-choice" data-asset="share"><span>🏢</span><strong>Company Shares</strong><small>Own a small piece of one company.</small><b>Medium–high risk</b></button>
+            <button class="asset-choice" data-asset="gilt"><span>🏛️</span><strong>UK Gilts</strong><small>Lend money to the UK Government.</small><b>Lower–medium risk</b></button>
+            <button class="asset-choice" data-asset="corp"><span>💼</span><strong>Corporate Bonds</strong><small>Lend money to companies for interest.</small><b>Medium risk</b></button>
+            <button class="asset-choice" data-asset="reit"><span>🏠</span><strong>Property / REITs</strong><small>Property exposure without buying a house.</small><b>Medium risk</b></button>
+            <button class="asset-choice" data-asset="crypto"><span>🪙</span><strong>Cryptoassets</strong><small>Digital assets with large price swings.</small><b>Very high risk</b></button>
+          </div>
+        </article>
+
+        <article id="asset-explainer" class="card asset-explainer"></article>
+
+        <div class="grid lab-layout">
+          <article class="card lab-controls">
+            <span class="step-pill">2 · TRY IT</span><h2>Try it with your money</h2>
+            <input id="lab-asset" type="hidden" value="fund" />
+            <label for="lab-start">Starting amount</label><div class="money-input"><span>£</span><input id="lab-start" type="number" min="0" max="100000" step="50" value="500" /></div>
+            <label for="lab-monthly">Add each month</label><div class="money-input"><span>£</span><input id="lab-monthly" type="number" min="0" max="10000" step="10" value="50" /></div>
+            <label for="lab-years">How long could you leave it?</label><select id="lab-years"><option value="1">About 1 year</option><option value="3">About 3 years</option><option value="5" selected>About 5 years</option><option value="10">10 years</option><option value="15">15 years</option></select>
+            <label for="lab-purpose">What is this money for?</label><select id="lab-purpose"><option value="spare">Long-term / spare money</option><option value="emergency">Emergency money</option><option value="rent">Rent or bills</option><option value="deposit">House / tenancy deposit</option><option value="education">Education</option><option value="other">Something else</option></select>
+            <button id="simulate-btn" class="btn primary wide">📊 Show me the possibilities</button><p class="microcopy">Illustrations only — not forecasts or personalised investment advice.</p>
+          </article>
+
+          <article class="card lab-results">
+            <div id="lab-empty" class="empty-state"><div class="big-icon">📈</div><h2>Your money story will appear here</h2><p>FinPulse will show a tough path, a middle illustration and a stronger path — not one fake prediction.</p></div>
+            <div id="lab-output" class="hidden">
+              <span class="step-pill">3 · SEE IT</span><div id="lab-asset-result" class="lab-asset-result"></div>
+              <div class="metric-row"><div class="metric"><span>You put in</span><strong id="lab-contributed">£0</strong></div><div class="metric"><span>Tough path</span><strong id="lab-downside">£0</strong></div><div class="metric"><span>Middle illustration</span><strong id="lab-steady">£0</strong></div><div class="metric"><span>Stronger path</span><strong id="lab-strong">£0</strong></div></div>
+
+              <section class="money-bars-section">
+                <div class="section-heading"><div><span class="step-pill">POSSIBLE PATHS</span><h3>💷 See the difference</h3></div><small>Educational scenarios — not market forecasts.</small></div>
+                <div id="money-growth-bars" class="money-growth-bars"></div>
+                <details class="calculation-details"><summary>🧮 How did FinPulse calculate this?</summary><div id="lab-calculation-explanation" class="calculation-copy"></div></details>
+              </section>
+
+              <section class="guidance-section">
+                <div class="guidance-card meaning-card"><span>🧠</span><div><h3>What this means for you</h3><p id="lab-personal-meaning"></p></div></div>
+                <div class="guidance-card consider-card"><span>🧭</span><div><h3>What to think about next</h3><ul id="lab-considerations"></ul></div></div>
+              </section>
+
+              <details class="trajectory-details"><summary>📈 See how the paths change over time</summary><div class="chart-wrap"><canvas id="money-chart" width="760" height="330" aria-label="Illustrative investment paths"></canvas></div></details>
+              <p class="microcopy">These paths use simple assumptions to teach risk. Real market returns can be better or worse. FinPulse does not predict what an investment will return or tell you what to buy.</p>
+
+              <div class="progressive-actions"><button id="stress-toggle" class="btn secondary">📉 Stress it</button><button id="readiness-toggle" class="btn secondary">🧭 Check myself</button><button id="learn-toggle" class="btn secondary">🎓 Learn more</button></div>
+              <section id="stress-panel" class="progressive-panel hidden"><span class="step-pill">4 · STRESS IT</span><h3>What if this investment falls?</h3><div class="shock-journey"><div class="shock-stage"><span>BEFORE</span><strong id="shock-start">£0</strong></div><div class="shock-arrow"><b id="shock-rate">−30%</b><span>example fall</span></div><div class="shock-stage danger"><span>AFTER</span><strong id="shock-after">£0</strong><small id="shock-shortfall"></small></div><div class="shock-arrow"><b id="recovery-needed">+0%</b><span>needed to recover</span></div><div class="shock-stage"><span>RECOVERY TARGET</span><strong id="shock-recover-target">£0</strong></div></div><p id="shock-copy"></p></section>
+              <section id="readiness-panel" class="progressive-panel hidden"><span class="step-pill">5 · CHECK MYSELF</span><div id="readiness-card" class="readiness-card"></div><div class="quick-check-row"><button class="quick-check" data-check="emergency">🚨 I have emergency savings</button><button class="quick-check" data-check="debt">💳 I have expensive debt</button></div><div id="readiness-checklist" class="readiness-checklist"></div><p id="timing-copy"></p></section>
+              <section id="learn-panel" class="progressive-panel hidden"><span class="step-pill">6 · LEARN MORE</span><div id="asset-lessons" class="asset-lessons"></div><div class="savings-benchmark"><strong>🏦 What if I kept it in savings?</strong><p>Cash savings usually move less than investments and can suit money needed sooner. Inflation can still reduce buying power. Compare rates and protection before choosing an account.</p></div></section>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="money-battles" class="tab-panel" aria-labelledby="battle-title">
+        <div class="hero compact-hero">
+          <div>
+            <span class="eyebrow">🎮 MONEY BATTLES · MIXED DIFFICULTY</span>
+            <h1 id="battle-title">🧠 Money <span>Sense</span></h1>
+            <p>Five quick real-life money decisions — everyday money and investing mixed together. Learn the reasoning, earn FinPoints, then challenge a friend.</p>
+          </div>
+        </div>
+
+        <div id="challenge-banner" class="challenge-banner hidden"></div>
+        <div class="grid battle-layout">
+          <article class="card battle-card">
+            <div class="battle-topline">
+              <span id="battle-round" class="step-pill">QUESTION 1 / 5</span>
+              <span>FinPoints: <strong id="battle-score">0</strong> / 500</span>
+            </div>
+            <div id="battle-content">
+              <div class="battle-post money-sense-post">
+                <span id="battle-platform">EVERYDAY MONEY</span>
+                <p id="battle-claim"></p>
+              </div>
+              <h2>What makes the most sense?</h2>
+              <div id="battle-options" class="battle-options"></div>
+              <div id="battle-feedback" class="battle-feedback hidden"></div>
+              <button id="battle-next" class="btn primary hidden">Next question →</button>
+            </div>
+            <div id="battle-finish" class="hidden finish-card">
+              <div class="big-icon">🧠</div>
+              <h2 id="battle-finish-title">Money Sense complete!</h2>
+              <p id="battle-finish-copy"></p>
+              <div id="battle-strengths" class="battle-strengths"></div>
+              <div class="finish-actions">
+                <button id="battle-restart" class="btn secondary">New 5-question battle</button>
+                <button id="battle-share" class="btn primary">🔗 Challenge a friend</button>
+              </div>
+              <div id="share-status" class="status-line"></div>
+            </div>
+          </article>
+
+          <aside class="card battle-side">
+            <span class="eyebrow">HOW MONEY SENSE WORKS</span>
+            <h2>Good judgement beats lucky guesses.</h2>
+            <p>Each battle mixes everyday money and investing. Questions change each time, and the answer order is shuffled.</p>
+            <div class="badge-stack">
+              <span>🏠 Protect essentials</span>
+              <span>💳 Understand borrowing</span>
+              <span>📈 Read investment risk</span>
+              <span>🛡️ Spot pressure & scams</span>
+            </div>
+            <p class="micro-note">You earn points for understanding safer financial principles — never for taking the biggest risk.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="progress" class="tab-panel" aria-labelledby="progress-title">
+        <div class="progress-hero card">
+          <div><span class="eyebrow">🏆 MY PROGRESS</span><h1 id="progress-title">Your FinPulse Journey</h1><p>Build your money brain one small win at a time.</p></div>
+          <div class="level-orb"><span>LEVEL</span><strong id="progress-level">1</strong><small>Money Sense</small></div>
+        </div>
+
+        <div class="progress-topline">
+          <article class="fun-stat"><span>🔥</span><div><strong id="progress-streak">1</strong><small>day streak</small></div></article>
+          <article class="fun-stat"><span>⭐</span><div><strong id="progress-points">0</strong><small>FinPoints</small></div></article>
+          <article class="fun-stat"><span>🧠</span><div><strong id="progress-level-label">Level 1</strong><small>money sense</small></div></article>
+        </div>
+
+        <article class="card daily-goal-card">
+          <div class="daily-goal-head"><div><span class="eyebrow">🎯 TODAY'S GOAL</span><h2>Keep your money brain moving</h2></div><strong id="daily-goal-count">0 / 3</strong></div>
+          <div class="xp-track"><span id="daily-goal-bar"></span></div>
+          <div id="daily-quests" class="daily-quests"></div>
+        </article>
+
+        <div class="progress-two-col">
+          <article class="card journey-card"><span class="eyebrow">🗺️ MONEY SKILLS JOURNEY</span><h2>Your learning path</h2><div id="skill-journey" class="skill-journey"></div></article>
+          <article class="card brain-card"><span class="eyebrow">🧠 YOUR MONEY BRAIN</span><h2>Skills getting stronger</h2><div id="money-brain" class="money-brain"></div><div id="next-practice" class="next-practice"></div></article>
+        </div>
+
+        <article class="card achievements-card fun-achievements"><div><span class="eyebrow">🏅 BADGE CABINET</span><h2>Collect wins as you learn</h2><p>Badges unlock from real activity across FinPulse.</p></div><div id="achievement-list" class="achievement-list"></div></article>
+
+        <div id="level-celebration" class="level-celebration hidden"><div class="celebration-pop">🎉</div><h2>Level up!</h2><p id="level-celebration-copy"></p><button id="close-celebration" class="btn primary">Keep going →</button></div>
+      </section>
     </main>
 
-    <!-- App Footer -->
-    <footer class="app-footer">
-        <p>Built for the <strong>Work in Fintech AI Summit & AI Hackathon 2026</strong> • NatWest Conference Centre, London</p>
-        <p class="disclaimer">Educational simulation tool. Not regulated financial advice. Designed for young investors & capability building.</p>
+    <footer>
+      <strong>FinPulse.AI</strong> — educational simulation for financial capability. Not regulated financial advice. FinPulse flags warning signs but does not certify that an offer is safe or fraudulent.
     </footer>
+  </div>
 
-    <script src="app.js"></script>
-    <!-- ServiceWorker PWA Registration Script -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('⚡ PWA ServiceWorker registered cleanly:', reg.scope))
-                    .catch(err => console.warn('⚠️ PWA ServiceWorker registration failed:', err));
-            });
-        }
-    </script>
+  <script src="/app.js"></script>
 </body>
 </html>

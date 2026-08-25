@@ -1,7 +1,7 @@
 {
-  "short_name": "FinPulse AI",
-  "name": "FinPulse AI — Financial Capability & Anti-Scam Shield",
-  "description": "Duolingo for Money + AI Anti-Scam Shield for Gen Z. OCR Finfluencer Auditor, HMRC UK Payslip Decoder & 5-Year Compound Risk Sandbox.",
+  "short_name": "FinPulse",
+  "name": "FinPulse.AI — Scam Check, Money Lab & Money Battles",
+  "description": "A plain-English financial safety app for spotting scam warning signs, learning investment risk through simulation, and building money skills with social challenges.",
   "icons": [
     {
       "src": "animated_architecture.svg",
@@ -10,10 +10,10 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait",
-  "theme_color": "#6366f1",
-  "background_color": "#070a13",
-  "scope": "./"
+  "orientation": "portrait-primary",
+  "theme_color": "#0b1020",
+  "background_color": "#080d19",
+  "scope": "/"
 }

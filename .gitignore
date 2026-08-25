@@ -25,3 +25,6 @@ tmp/
 database.json
 .vercel
 .env*
+
+.venv-transcribe/
+test_audio.webm

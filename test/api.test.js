@@ -75,3 +75,30 @@ test('creates an educational decision receipt after comprehension check', async 
     assert.match(receipt.body.privacy, /claim text.*not stored/i);
     assert.match(receipt.body.boundary, /not approval to invest/);
 });
+
+test('v2 scam check returns plain-English warning signs tied to the claim', async () => {
+    const response = await request(app).post('/api/v2/scam-check').send({
+        claimText: 'Guaranteed 30% profit tonight. DM me now and use my link.'
+    }).expect(200);
+    assert.equal(response.body.success, true);
+    assert.equal(response.body.level, 'HIGH');
+    assert.ok(response.body.flags.length >= 3);
+    assert.match(response.body.flags[0].why, /investment|offer|check|risk/i);
+    assert.match(response.body.checkedText, /Guaranteed 30% profit/);
+});
+
+test('v2 money lab makes essential short-term money visibly cautious', async () => {
+    const response = await request(app).post('/api/v2/money-lab').send({
+        startAmount: 500,
+        monthlyContribution: 100,
+        years: 1,
+        purpose: 'rent',
+        hasEmergencyFund: false,
+        hasHighInterestDebt: false
+    }).expect(200);
+    assert.equal(response.body.success, true);
+    assert.equal(response.body.readiness.tone, 'stop');
+    assert.equal(response.body.shock.after, 350);
+    assert.ok(response.body.shock.recoveryNeededPct > 40);
+    assert.equal(response.body.checklist.length, 4);
+});

@@ -2,7 +2,7 @@
    FinPulse AI — Progressive Web App (PWA) ServiceWorker
    ========================================================================== */
 
-const CACHE_NAME = 'finpulse-ai-v2';
+const CACHE_NAME = 'finpulse-ai-v3';
 const ASSETS_TO_CACHE = [
     './',
     './style.css',
