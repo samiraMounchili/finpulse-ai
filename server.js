@@ -41,7 +41,7 @@ app.get('/api/v1/health', (req, res) => {
     });
 });
 // Automatic Social Video Transcription
-app.post('/api/v1/transcribe', (req, res) => {
+app.post('/api/v1/transcribe', async (req, res) => {
     const videoUrl = String(req.body.videoUrl || '').trim();
 
     if (!videoUrl) {
@@ -85,7 +85,66 @@ app.post('/api/v1/transcribe', (req, res) => {
             error: 'Use a public YouTube, TikTok, Instagram or X link.'
         });
     }
+    // Try Supadata first for public social-video transcripts
+    const supadataKey = process.env.SUPADATA_API_KEY;
 
+    if (supadataKey) {
+        try {
+            const supadataUrl =
+                `https://api.supadata.ai/v1/transcript?url=${encodeURIComponent(videoUrl)}`;
+
+            const supadataResponse = await fetch(supadataUrl, {
+                method: 'GET',
+                headers: {
+                    'x-api-key': supadataKey
+                }
+            });
+
+            if (supadataResponse.ok) {
+                const data = await supadataResponse.json();
+
+                let transcript = '';
+
+                if (Array.isArray(data.content)) {
+                    transcript = data.content
+                        .map(part => part.text || '')
+                        .join(' ')
+                        .replace(/\s+/g, ' ')
+                        .trim();
+                } else if (typeof data.content === 'string') {
+                    transcript = data.content.trim();
+                }
+
+                if (transcript) {
+                    console.log('Transcript source: Supadata');
+
+                    return res.json({
+                        success: true,
+                        transcript,
+                        language: data.lang || 'unknown',
+                        source: 'supadata'
+                    });
+                }
+            } else {
+                const apiError = await supadataResponse.text();
+
+                console.error(
+                    'Supadata failed:',
+                    supadataResponse.status,
+                    apiError
+                );
+            }
+        } catch (error) {
+            console.error(
+                'Supadata request failed:',
+                error.message
+            );
+        }
+    }
+
+    console.log(
+        'Supadata unavailable — trying local transcription fallback.'
+    );
     const pythonExe =
     process.platform === 'win32'
         ? path.join(
