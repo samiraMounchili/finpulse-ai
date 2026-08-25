@@ -1,0 +1,8 @@
+node_modules
+.venv-transcribe
+.git
+.gitignore
+test_audio.webm
+*.log
+.env
+.env.*

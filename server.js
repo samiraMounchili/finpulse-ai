@@ -86,12 +86,15 @@ app.post('/api/v1/transcribe', (req, res) => {
         });
     }
 
-    const pythonExe = path.join(
-        __dirname,
-        '.venv-transcribe',
-        'Scripts',
-        'python.exe'
-    );
+    const pythonExe =
+    process.platform === 'win32'
+        ? path.join(
+            __dirname,
+            '.venv-transcribe',
+            'Scripts',
+            'python.exe'
+        )
+        : 'python3';
 
     const scriptPath = path.join(
         __dirname,
