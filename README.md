@@ -1,4 +1,44 @@
-# FinPulse AI
+# FinPulse AI — FinTech Hackathon Project
+
+> **Portfolio Note:** FinPulse AI was developed collaboratively during a fintech hackathon. This repository is a fork of the original team repository and is included on my GitHub portfolio to showcase the project and my contribution to its development.
+
+## Live Demo
+
+🚀 **[Try FinPulse AI](https://finpulse-ai-dqho.onrender.com/)**
+
+## About FinPulse
+
+FinPulse is an AI-powered fintech prototype designed to make financial information easier to understand and help users recognise potentially misleading or fraudulent financial content.
+
+The platform combines financial education, scam-awareness tools and interactive learning experiences in one accessible application.
+
+### Key Features
+
+- **Scam Check** — analyses financial content to help users identify potential warning signs and suspicious claims.
+- **Money Lab** — introduces users to different investment options and provides educational guidance around investment decisions.
+- **Money Battle** — gamified financial-learning challenges designed to make financial concepts more engaging.
+- **Money Sense** — scenario-based financial education that allows users to practise making financial decisions.
+- **Interactive Financial Education** — simplifies financial concepts for users with different levels of financial knowledge.
+
+## My Contribution
+
+During the hackathon, I contributed to the development of FinPulse through:
+
+- Product ideation and feature development
+- Designing the user journey and overall experience
+- Development and refinement of the financial scam-detection concept
+- Investment-learning and financial-literacy features
+- Testing and improving the prototype
+- Working collaboratively with the team to develop the final hackathon solution
+
+The project gave me practical experience combining **FinTech, AI, financial education, product thinking and user-centred problem solving**.
+
+## Skills Demonstrated
+
+`FinTech` · `Artificial Intelligence` · `Financial Literacy` · `Product Development` · `Problem Solving` · `Teamwork` · `Prototype Development`
+
+---
+---# FinPulse AI
 
 FinPulse AI is an educational financial-literacy and scam-awareness prototype built for the Work in Fintech AI Summit & AI Hackathon 2026.
 
